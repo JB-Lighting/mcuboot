@@ -29,6 +29,10 @@
 #include <soc.h>
 #include <zephyr/linker/linker-defs.h>
 
+#ifdef CONFIG_MPU_REGIONS_PRINT
+#include <zephyr/arch/arm/mpu/arm_mpu_regions_print.h>
+#endif
+
 #if defined(CONFIG_BOOT_DISABLE_CACHES)
 #include <zephyr/cache.h>
 #endif
@@ -510,6 +514,10 @@ int main(void)
     BOOT_LOG_INF("Starting bootloader");
 #else
     BOOT_LOG_INF("Starting Direct-XIP bootloader");
+#endif
+
+#ifdef CONFIG_MPU_REGIONS_PRINT
+	arm_mpu_regions_print();
 #endif
 
 #ifdef CONFIG_MCUBOOT_INDICATION_LED
